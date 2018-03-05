@@ -1,0 +1,1 @@
+import './scripts/restaurant_info';
