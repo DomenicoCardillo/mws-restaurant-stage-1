@@ -4,9 +4,9 @@ body,
 td,
 th,
 p {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 10pt;
-  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #462816;
   line-height: 1.5;
 }
 
@@ -18,13 +18,17 @@ body {
 
 ul,
 li {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 10pt;
-  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+li {
+  color: #fff;
+  opacity: .6;
 }
 
 a {
-  color: orange;
+  color: #f8ae00;
   text-decoration: none;
 }
 
@@ -44,7 +48,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0 0 20px;
 }
 
@@ -63,12 +67,71 @@ section {
   display: block;
 }
 
+/* Main Layout */
+.c-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  min-height: 60px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.c-header .c-header__brand {
+  display: inherit;
+
+  margin: 0;
+  padding: 20px 10px;
+}
+
+.c-header .c-header__brand a {
+  color: #462816;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+
+/* Header breadcrumb */
+.c-breadcrumb {
+  display: flex;
+  flex: 1 0 100%;
+
+  margin: 0;
+
+  list-style: none;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #452816;
+}
+
+.c-breadcrumb li:first-child {
+  margin-left: 20px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+.c-breadcrumb li + li:before {
+  padding: 8px;
+  color: #fff;
+  content: "/\00a0";
+}
+
+.c-breadcrumb li a {
+  color: #fff;
+}
+
+.c-breadcrumb li a:hover {
+  opacity: 1;
+}
+
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
 }
 
-#footer {
+.footer {
   background-color: #444;
   color: #aaa;
   font-size: 8pt;
@@ -76,59 +139,6 @@ section {
   padding: 25px;
   text-align: center;
   text-transform: uppercase;
-}
-
-/* ====================== Navigation ====================== */
-nav {
-  width: 100%;
-  height: 80px;
-  background-color: #252831;
-  text-align: center;
-}
-
-nav h1 {
-  margin: auto;
-}
-
-nav h1 a {
-  color: #fff;
-  font-size: 14pt;
-  font-weight: 200;
-  letter-spacing: 10px;
-  text-transform: uppercase;
-}
-
-#breadcrumb {
-  padding: 10px 40px 16px;
-  list-style: none;
-  background-color: #eee;
-  font-size: 17px;
-  margin: 0;
-  width: calc(50% - 80px);
-}
-
-/* Display list items side by side */
-#breadcrumb li {
-  display: inline;
-}
-
-/* Add a slash symbol (/) before/behind each list item */
-#breadcrumb li + li:before {
-  padding: 8px;
-  color: black;
-  content: "/\00a0";
-}
-
-/* Add a color to all links inside the list */
-#breadcrumb li a {
-  color: #0275d8;
-  text-decoration: none;
-}
-
-/* Add a color on mouse-over */
-#breadcrumb li a:hover {
-  color: #01447e;
-  text-decoration: underline;
 }
 
 /* ====================== Map ====================== */
@@ -225,14 +235,14 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Details ====================== */
-.inside header {
+.page--restaurant .c-header {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
 
-.inside #map-container {
+.page--restaurant #map-container {
   background: blue none repeat scroll 0 0;
   height: 87%;
   position: fixed;
@@ -241,13 +251,13 @@ nav h1 a {
   width: 50%;
 }
 
-.inside #map {
+.page--restaurant #map {
   background-color: #ccc;
   height: 100%;
   width: 100%;
 }
 
-.inside #footer {
+.page--restaurant .footer {
   bottom: 0;
   position: absolute;
   width: 50%;
