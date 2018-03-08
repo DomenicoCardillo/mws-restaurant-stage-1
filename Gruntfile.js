@@ -5,6 +5,15 @@
  */
 
 const config = {
+  clean: {
+    build: {
+      src: [
+        'img/*.jpg',
+        'img/*.png',
+        'img/*.jpeg',
+      ]
+    }
+  },
   responsive_images: {
     dev: {
       options: {
@@ -23,7 +32,7 @@ const config = {
       files: [{
         expand: true,
         src: ['*.{gif,jpg,png}'],
-        cwd: 'src/img/',
+        cwd: 'img/original',
         dest: 'img/',
       }]
     }
@@ -33,5 +42,6 @@ const config = {
 module.exports = (grunt) => {
   grunt.initConfig(config);
   grunt.loadNpmTasks('grunt-responsive-images');
-  grunt.registerTask('responsive-img', ['responsive_images']);
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.registerTask('responsive-img', ['clean', 'responsive_images']);
 };

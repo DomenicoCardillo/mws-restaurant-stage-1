@@ -30,7 +30,7 @@ const fetchRestaurantFromURL = (callback) => {
     callback(null, self.restaurant);
     return;
   }
-  const id = getParameterByName('id');
+  const id = parseInt(getParameterByName('id'));
   if (!id) { // no id found in URL
     const error = 'No restaurant id in URL';
     callback(error, null);

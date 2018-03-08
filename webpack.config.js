@@ -1,16 +1,13 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const scssMainFilePath = './src/scss/main.scss';
-const extractPlugin = new ExtractTextPlugin({ filename: 'css/styles.css' });
 
 const config = {
   entry: {
-    index: ['./src/js/index.js', scssMainFilePath],
-    restaurant: ['./src/js/restaurant.js', scssMainFilePath],
+    index: './js/index.js',
+    restaurant: './js/restaurant.js',
   },
   output: {
     path: path.resolve(__dirname),
-    filename: 'js/[name].js',
+    filename: 'dist/[name].js',
   },
   resolve: {
     extensions: ['.js'],
@@ -25,15 +22,6 @@ const config = {
             presets: ['env'],
           }
         }]
-      },
-      {
-        test: /\.scss$/,
-        use: extractPlugin.extract({
-          use: [
-            'css-loader',
-            'sass-loader',
-          ]
-        })
       },
       // {
       //   test: /\.(png|jpe?g)$/,
@@ -50,9 +38,6 @@ const config = {
       // },
     ]
   },
-  plugins: [
-    extractPlugin
-  ]
 };
 
 module.exports = config;
