@@ -149,8 +149,35 @@ class DBHelper {
   /**
    * Restaurant image URL.
    */
-  static imageUrlForRestaurant(restaurant) {
-    return (`/img/original/${restaurant.photograph}`);
+  static imageUrlForRestaurant(restaurant, size = 'original') {
+    return `/img/${size}/${restaurant.photograph}`;
+  }
+  
+  /**
+   * Get Picture from restaurant and sizes
+   */
+  static sizedPictureForRestaurant(restaurant, imgSizes = []) {
+    let picture = document.createElement('picture');
+    let source = null;
+    
+    imgSizes.forEach((imgSize) => {
+      source = document.createElement('source');
+      source.media = `(min-width: ${imgSize.minWidth}px)`;
+      source.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
+      picture.append(source);
+    });
+  
+    const img = document.createElement('img');
+    img.src = DBHelper.imageUrlForRestaurant(restaurant);
+    img.alt = 'Restaurant photo';
+    
+    if (source !== null) {
+      picture.append(img);
+    } else {
+      picture = img;
+    }
+    
+    return picture;
   }
   
   /**

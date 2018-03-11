@@ -8,9 +8,8 @@ const config = {
   clean: {
     build: {
       src: [
-        'img/*.jpg',
-        'img/*.png',
-        'img/*.jpeg',
+        'img/**/*.jpg',
+        '!img/original/*.jpg',
       ]
     }
   },
@@ -19,13 +18,13 @@ const config = {
       options: {
         engine: 'gm',
         sizes: [{
-          width: 800,
+          width: 670,
           quality: 85,
         }, {
-          width: 400,
+          width: 570,
           quality: 85,
         }, {
-          width: 200,
+          width: 470,
           quality: 85,
         }],
       },
@@ -33,7 +32,7 @@ const config = {
         expand: true,
         src: ['*.{gif,jpg,png}'],
         cwd: 'img/original',
-        dest: 'img/',
+        custom_dest: 'img/{%= width %}/',
       }]
     }
   },

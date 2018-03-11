@@ -151,11 +151,21 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
 const createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
   li.className = 'c-restaurant';
-
-  const image = document.createElement('img');
-  image.className = 'c-restaurant__img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  
+  const imgSizes = [{
+    size: 670,
+    minWidth: 570,
+  }, {
+    size: 570,
+    minWidth: 470,
+  }, {
+    size: 470,
+    minWidth: 320,
+  }];
+  
+  const picture = DBHelper.sizedPictureForRestaurant(restaurant, imgSizes);
+  picture.className = 'c-restaurant__img';
+  li.append(picture);
   
   const content = document.createElement('div');
   content.className = 'c-restaurant__content';
@@ -169,6 +179,7 @@ const createRestaurantHTML = (restaurant) => {
   content.append(neighborhood);
 
   const address = document.createElement('p');
+  address.className = 'c-restaurant__address';
   address.innerHTML = restaurant.address;
   content.append(address);
 

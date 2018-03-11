@@ -12,7 +12,7 @@ p {
   flex-direction: column;
   min-height: 100%;
 
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   color: #aa9f98;
   line-height: 1.5;
@@ -26,7 +26,7 @@ body {
 
 ul,
 li {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -45,13 +45,17 @@ a img {
   border: none 0 #fff;
 }
 
+img {
+  max-width: 100%;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0 0 20px;
 }
 
@@ -93,7 +97,7 @@ section {
   display: inherit;
 
   margin: 0;
-  padding: 20px 10px;
+  padding: 10px;
 }
 
 .c-header .c-header__brand a {
@@ -257,7 +261,7 @@ section {
   list-style: outside none none;
 
   /* 320 (min device width) - 20 * 2 (container width) */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 20px;
   padding: 0;
   margin-top: 20px;
@@ -283,13 +287,13 @@ section {
   padding: 15px;
 }
 
-.c-restaurant .c-restaurant__img {
-  background-color: #ddd;
+.c-restaurant .c-restaurant__picture {
   display: block;
   margin: 0;
-  max-width: 100%;
-  min-height: 248px;
-  min-width: 100%;
+}
+
+.c-restaurant .c-restaurant__address {
+  min-height: 42px;
 }
 
 .c-restaurant h3 {
