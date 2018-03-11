@@ -37,7 +37,7 @@ const fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     const option = document.createElement('option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
-    select.append(option);
+    select.appendChild(option);
   });
 };
 
@@ -65,7 +65,7 @@ const fillCuisinesHTML = (cuisines = self.cuisines) => {
     const option = document.createElement('option');
     option.innerHTML = cuisine;
     option.value = cuisine;
-    select.append(option);
+    select.appendChild(option);
   });
 };
 
@@ -132,14 +132,14 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
   if (restaurants.length > 0) {
     ul.classList.remove('c-restaurants--not-found');
     restaurants.forEach(restaurant => {
-      ul.append(createRestaurantHTML(restaurant));
+      ul.appendChild(createRestaurantHTML(restaurant));
     });
   } else {
     ul.classList.add('c-restaurants--not-found');
     const notFound = document.createElement('li');
     notFound.innerHTML = 'No restaurant found, try with other filter!';
     notFound.className = 'c-restaurants__not-found';
-    ul.append(notFound);
+    ul.appendChild(notFound);
   }
   
   addMarkersToMap();
@@ -164,32 +164,32 @@ const createRestaurantHTML = (restaurant) => {
   }];
   
   const picture = DBHelper.sizedPictureForRestaurant(restaurant, imgSizes);
-  picture.className = 'c-restaurant__img';
-  li.append(picture);
+  picture.className = 'c-restaurant__picture';
+  li.appendChild(picture);
   
   const content = document.createElement('div');
   content.className = 'c-restaurant__content';
 
   const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
-  content.append(name);
+  content.appendChild(name);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
-  content.append(neighborhood);
+  content.appendChild(neighborhood);
 
   const address = document.createElement('p');
   address.className = 'c-restaurant__address';
   address.innerHTML = restaurant.address;
-  content.append(address);
+  content.appendChild(address);
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  content.append(more);
+  content.appendChild(more);
   
   /* Append content to the li element */
-  li.append(content);
+  li.appendChild(content);
   
   return li;
 };

@@ -285,6 +285,7 @@ section {
 .c-restaurant {
   background-color: #fff;
   border: 1px solid #ddd;
+  border-radius: 10px 10px 0 0;
 }
 
 .c-restaurants .c-restaurants__not-found {
@@ -303,6 +304,10 @@ section {
 .c-restaurant .c-restaurant__picture {
   display: block;
   margin: 0;
+}
+
+.c-restaurant .c-restaurant__picture img {
+  border-radius: 10px 10px 0 0;
 }
 
 .c-restaurant .c-restaurant__address {
@@ -358,12 +363,15 @@ section {
 
 /* Map */
 .page.page--restaurant .c-main .c-main__map {
-  background: #fafafa none repeat scroll 0 0;
-  height: calc(100% - 100px);
   position: fixed;
   right: 0;
   top: 100px;
+
   width: 50%;
+  height: calc(100% - 100px);
+
+  background: #fafafa none repeat scroll 0 0;
+  border-left: 1px solid #442816;
 }
 
 .page.page--restaurant .c-map {
@@ -390,6 +398,10 @@ section {
   margin: 0;
 }
 
+.c-restaurant-details .c-restaurant-details__picture img {
+  border-radius: 10px 10px 0 0;
+}
+
 .c-restaurant-details .c-restaurant-details__cuisine {
   margin: -7px 0 15px;
   padding: 2px 0;
@@ -412,6 +424,7 @@ section {
   width: 100%;
   border: 1px solid #452816;
   background-color: #fff;
+  border-radius: 10px 10px 0 0;
 }
 
 .c-restaurant-details .c-restaurant-details__hours td:first-child {
@@ -449,19 +462,47 @@ section {
   padding: 0;
 }
 
-.c-reviews li {
+.c-review {
   position: relative;
   display: block;
   margin: 0 0 20px;
-  padding: 20px;
 
   border: 1px solid #ddd;
   background-color: #fff;
   list-style-type: none;
+
+  border-radius: 10px 10px 0 0;
 }
 
-.c-reviews li p {
-  margin: 0 0 10px;
+.c-review .c-review__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #442816;
+  padding: 15px;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.c-review .c-review__rate {
+  display: inline-block;
+  padding: 5px 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+
+  background-color: #f8ae00;
+  color: #fff;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.c-review .c-review__content {
+  padding: 15px;
+}
+
+.c-review .c-review__content p {
+  margin: 0;
 }
 
 /* Re-layout */
@@ -475,6 +516,7 @@ section {
     display: block;
     height: 300px;
     width: 100%;
+    border-left: none;
   }
 
   .page.page--restaurant .c-footer {

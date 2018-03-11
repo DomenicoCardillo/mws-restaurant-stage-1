@@ -56,8 +56,22 @@ const fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
-
-  const picture = DBHelper.sizedPictureForRestaurant(restaurant);
+  
+  const imgSizes = [{
+    size: 'original',
+    minWidth: 670,
+  }, {
+    size: 670,
+    minWidth: 570,
+  }, {
+    size: 570,
+    minWidth: 470,
+  }, {
+    size: 470,
+    minWidth: 320,
+  }];
+  
+  const picture = DBHelper.sizedPictureForRestaurant(restaurant, imgSizes);
   const image = document.getElementById('restaurant-img');
   image.innerHTML = picture.innerHTML;
 
@@ -107,10 +121,12 @@ const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     container.appendChild(noReviews);
     return;
   }
+  
   const ul = document.getElementById('reviews-list');
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
+  
   container.appendChild(ul);
 };
 
@@ -119,21 +135,35 @@ const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 const createReviewHTML = (review) => {
   const li = document.createElement('li');
-  const name = document.createElement('p');
+  li.className = 'c-review';
+  
+  const header = document.createElement('div');
+  header.className = 'c-review__header';
+  
+  const name = document.createElement('span');
   name.innerHTML = review.name;
-  li.appendChild(name);
+  header.appendChild(name);
 
-  const date = document.createElement('p');
+  const date = document.createElement('span');
   date.innerHTML = review.date;
-  li.appendChild(date);
-
-  const rating = document.createElement('p');
+  header.appendChild(date);
+  
+  li.appendChild(header);
+  
+  const content = document.createElement('div');
+  content.className = 'c-review__content';
+  
+  const rating = document.createElement('span');
+  rating.className = 'c-review__rate';
   rating.innerHTML = `Rating: ${review.rating}`;
-  li.appendChild(rating);
+  content.appendChild(rating);
 
   const comments = document.createElement('p');
+  comments.className = 'c-review__comments';
   comments.innerHTML = review.comments;
-  li.appendChild(comments);
+  content.appendChild(comments);
+  
+  li.appendChild(content);
 
   return li;
 };
