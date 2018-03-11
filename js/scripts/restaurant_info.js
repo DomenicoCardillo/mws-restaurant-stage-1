@@ -41,7 +41,7 @@ const fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
-      fillRestaurantHTML();
+      createRestaurantHTML();
       callback(null, restaurant);
     });
   }
@@ -50,12 +50,13 @@ const fetchRestaurantFromURL = (callback) => {
 /**
  * Create restaurant HTML and add it to the webpage
  */
-const fillRestaurantHTML = (restaurant = self.restaurant) => {
-  const name = document.getElementById('restaurant-name');
+const createRestaurantHTML = (restaurant = self.restaurant) => {
+  const restaurantContainer = document.getElementById('restaurant-container');
+  
+  const name = document.createElement('h2');
+  name.className = 'c-restaurant-details__name';
   name.innerHTML = restaurant.name;
-
-  const address = document.getElementById('restaurant-address');
-  address.innerHTML = restaurant.address;
+  restaurantContainer.appendChild(name);
   
   const imgSizes = [{
     size: 'original',
@@ -72,15 +73,22 @@ const fillRestaurantHTML = (restaurant = self.restaurant) => {
   }];
   
   const picture = DBHelper.sizedPictureForRestaurant(restaurant, imgSizes);
-  const image = document.getElementById('restaurant-img');
-  image.innerHTML = picture.innerHTML;
-
-  const cuisine = document.getElementById('restaurant-cuisine');
+  picture.className = 'c-restaurant-details__picture';
+  restaurantContainer.appendChild(picture);
+  
+  const cuisine = document.createElement('p');
+  cuisine.className = 'c-restaurant-details__cuisine';
   cuisine.innerHTML = restaurant.cuisine_type;
+  restaurantContainer.appendChild(cuisine);
+
+  const address = document.createElement('p');
+  address.className = 'c-restaurant-details__address';
+  address.innerHTML = restaurant.address;
+  restaurantContainer.appendChild(address);
 
   // fill operating hours
   if (restaurant.operating_hours) {
-    fillRestaurantHoursHTML();
+    restaurantContainer.appendChild(fillRestaurantHoursHTML());
   }
   // fill reviews
   fillReviewsHTML();
@@ -90,7 +98,9 @@ const fillRestaurantHTML = (restaurant = self.restaurant) => {
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
 const fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
-  const hours = document.getElementById('restaurant-hours');
+  const hours = document.createElement('table');
+  hours.className = 'c-restaurant-details__hours';
+  
   for (let key in operatingHours) {
     const row = document.createElement('tr');
     const day = document.createElement('td');
@@ -104,6 +114,8 @@ const fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hour
     row.appendChild(time);
     hours.appendChild(row);
   }
+  
+  return hours;
 };
 
 /**
@@ -117,6 +129,7 @@ const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 
   if (!reviews) {
     const noReviews = document.createElement('p');
+    noReviews.className = 'c-reviews__not-found';
     noReviews.innerHTML = 'No reviews yet!';
     container.appendChild(noReviews);
     return;
