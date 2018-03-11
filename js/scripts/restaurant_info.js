@@ -57,9 +57,9 @@ const fillRestaurantHTML = (restaurant = self.restaurant) => {
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
+  const picture = DBHelper.sizedPictureForRestaurant(restaurant);
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.innerHTML = picture.innerHTML;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -79,15 +79,15 @@ const fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hour
   const hours = document.getElementById('restaurant-hours');
   for (let key in operatingHours) {
     const row = document.createElement('tr');
-
     const day = document.createElement('td');
+    
     day.innerHTML = key;
     row.appendChild(day);
 
     const time = document.createElement('td');
     time.innerHTML = operatingHours[key];
+    
     row.appendChild(time);
-
     hours.appendChild(row);
   }
 };

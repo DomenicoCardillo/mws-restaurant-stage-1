@@ -158,8 +158,8 @@ class DBHelper {
    */
   static sizedPictureForRestaurant(restaurant, imgSizes = []) {
     let picture = document.createElement('picture');
-    let source = null;
     
+    let source = null;
     imgSizes.forEach((imgSize) => {
       source = document.createElement('source');
       source.media = `(min-width: ${imgSize.minWidth}px)`;
@@ -171,11 +171,7 @@ class DBHelper {
     img.src = DBHelper.imageUrlForRestaurant(restaurant);
     img.alt = 'Restaurant photo';
     
-    if (source !== null) {
-      picture.append(img);
-    } else {
-      picture = img;
-    }
+    picture.append(img);
     
     return picture;
   }
