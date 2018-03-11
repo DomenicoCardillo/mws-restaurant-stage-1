@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,23 +22,31 @@
 
 <main id="maincontent" class="main">
   <section id="map-container">
-    <div id="map"></div>
+    <div id="map" class="map"></div>
   </section>
   <section>
-    <div class="filter-options">
-      <h2>Filter Results</h2>
-      <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-        <option value="all">All Neighborhoods</option>
-      </select>
-      <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-        <option value="all">All Cuisines</option>
-      </select>
+    <div class="c-filters">
+      <div class="o-container">
+        <div class="c-filters__inner">
+          <h2 class="c-filters__title">Filter Results</h2>
+          <div class="c-filters__form">
+            <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+              <option value="all">All Neighborhoods</option>
+            </select>
+            <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+              <option value="all">All Cuisines</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
-    <ul id="restaurants-list"></ul>
+    <div class="o-container">
+      <ul id="restaurants-list" class="c-restaurants"></ul>
+    </div>
   </section>
 </main>
 
-<footer class="footer">
+<footer class="c-footer">
   Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
 </footer>
 
