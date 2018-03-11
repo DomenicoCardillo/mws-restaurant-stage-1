@@ -17,6 +17,7 @@
 <!-- Beginning header -->
 <header class="c-header">
   <h1 id="logo" class="c-header__brand">
+    <img src="svg/star.svg" />
     <a href="/">Restaurant Reviews</a>
   </h1>
 
@@ -26,24 +27,26 @@
 </header>
 
 <!-- Beginning main -->
-<main id="maincontent">
+<main id="maincontent" class="c-main">
   <!-- Beginning map -->
-  <section id="map-container">
-    <div id="map"></div>
+  <section id="map-container" class="c-main__map">
+    <div id="map" class="c-map"></div>
   </section>
   <!-- End map -->
   <!-- Beginning restaurant -->
-  <section id="restaurant-container">
-    <h1 id="restaurant-name"></h1>
-    <img id="restaurant-img">
-    <p id="restaurant-cuisine"></p>
-    <p id="restaurant-address"></p>
-    <table id="restaurant-hours"></table>
+  <section class="o-container c-main__restaurant-details c-restaurant-container">
+    <div id="restaurant-container" class="c-restaurant-details">
+      <h2 id="restaurant-name"></h2>
+      <img id="restaurant-img">
+      <p id="restaurant-cuisine"></p>
+      <p id="restaurant-address"></p>
+      <table id="restaurant-hours"></table>
+    </div>
   </section>
   <!-- end restaurant -->
   <!-- Beginning reviews -->
-  <section id="reviews-container">
-    <ul id="reviews-list"></ul>
+  <section id="reviews-container" class="o-container c-main__restaurant-reviews c-reviews-container">
+    <ul id="reviews-list" class="c-reviews"></ul>
   </section>
   <!-- End reviews -->
 </main>

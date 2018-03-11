@@ -2,6 +2,14 @@
 
 html {
   height: 100%;
+  font-size: 16px;
+
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body,
@@ -13,7 +21,7 @@ p {
   min-height: 100%;
 
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   color: #aa9f98;
   line-height: 1.5;
 }
@@ -27,7 +35,7 @@ body {
 ul,
 li {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 a {
@@ -94,17 +102,21 @@ section {
 }
 
 .c-header .c-header__brand {
-  display: inherit;
+  display: flex;
+  align-items: center;
 
   margin: 0;
   padding: 10px;
 }
 
+.c-header .c-header__brand img {
+  margin-right: 10px;
+}
+
 .c-header .c-header__brand a {
   color: #462816;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 400;
-  letter-spacing: 10px;
   text-transform: uppercase;
 }
 
@@ -116,7 +128,7 @@ section {
   margin: 0;
 
   list-style: none;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 15px 20px;
   background-color: #452816;
 }
@@ -141,19 +153,19 @@ section {
 }
 
 /* Main */
-.main {
+.c-main {
   background-color: #fafafa;
   min-height: 100%;
 }
 
 /* Footer */
 .c-footer {
-  padding: 20px;
+  padding: 13px;
+  max-height: 58px;
   margin-top: auto;
 
   background-color: #442816;
   font-size: 12px;
-  letter-spacing: 1px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -163,14 +175,14 @@ section {
 }
 
 /* ====================== Map ====================== */
-.map {
+.c-map {
   height: 400px;
   width: 100%;
   background-color: #fafafa;
 }
 
-@media screen and (max-width: 620px) {
-  .map {
+@media screen and (max-width: 420px) {
+  .c-map {
     height: 300px;
   }
 }
@@ -196,10 +208,9 @@ section {
   line-height: 1;
 
   color: #fff;
-  font-size: 14px;
+  font-size: 0.875rem;
   text-transform: uppercase;
   font-weight: normal;
-  letter-spacing: 1px;
 }
 
 .c-filters .c-filters__form {
@@ -215,7 +226,7 @@ section {
   padding: 0 10px;
   min-width: 200px;
 
-  font-size: 14px;
+  font-size: 0.875rem;
   background-color: #fff;
 }
 
@@ -267,19 +278,21 @@ section {
   margin-top: 20px;
 }
 
+.c-restaurants.c-restaurants--not-found {
+  display: block;
+}
+
 .c-restaurant {
   background-color: #fff;
   border: 1px solid #ddd;
 }
 
 .c-restaurants .c-restaurants__not-found {
-  grid-column: 1 / 5;
-
   margin-bottom: 10px;
 
   color: #452816;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
 }
 
@@ -308,7 +321,7 @@ section {
 
 .c-restaurant p {
   margin: 0 0 10px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .c-restaurant a {
@@ -324,47 +337,52 @@ section {
 }
 
 /* ====================== Restaurant Details ====================== */
-.page--restaurant .c-header {
+/* Layout */
+.page.page--restaurant .c-header {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
 
-.page--restaurant #map-container {
-  background: blue none repeat scroll 0 0;
-  height: 87%;
-  position: fixed;
-  right: 0;
-  top: 80px;
+.page.page--restaurant .c-main {
+  padding-top: 100px;
+}
+
+.page.page--restaurant .c-footer {
+  position: absolute;
+  bottom: 0;
+
   width: 50%;
 }
 
-.page--restaurant #map {
-  background-color: #ccc;
+/* Map */
+.page.page--restaurant .c-main .c-main__map {
+  background: #fafafa none repeat scroll 0 0;
+  height: calc(100% - 100px);
+  position: fixed;
+  right: 0;
+  top: 100px;
+  width: 50%;
+}
+
+.page.page--restaurant .c-map {
   height: 100%;
   width: 100%;
 }
 
-.page--restaurant .footer {
-  bottom: 0;
-  position: absolute;
+/* Restaurant details */
+.c-restaurant-container {
   width: 50%;
 }
 
-#restaurant-name {
-  color: #f18200;
-  font-family: Arial,sans-serif;
-  font-size: 20pt;
-  font-weight: 200;
-  letter-spacing: 0;
-  margin: 15px 0 30px;
+.c-restaurant-details h2 {
+  color: #f8ae00;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 15px 0;
   text-transform: uppercase;
-  line-height: 1.1;
-}
-
-#restaurant-img {
-  width: 90%;
+  text-align: center;
 }
 
 #restaurant-address {
@@ -382,50 +400,69 @@ section {
   padding: 2px 0;
   text-align: center;
   text-transform: uppercase;
-  width: 90%;
-}
-
-#restaurant-container,
-#reviews-container {
-  border-bottom: 1px solid #d9d9d9;
-  border-top: 1px solid #fff;
-  padding: 140px 40px 30px;
-  width: 50%;
-}
-
-#reviews-container {
-  padding: 30px 40px 80px;
-}
-
-#reviews-container h2 {
-  color: #f58500;
-  font-size: 24pt;
-  font-weight: 300;
-  letter-spacing: -1px;
-  padding-bottom: 1pt;
-}
-
-#reviews-list {
-  margin: 0;
-  padding: 0;
-}
-
-#reviews-list li {
-  background-color: #fff;
-  border: 2px solid #f3f3f3;
-  display: block;
-  list-style-type: none;
-  margin: 0 0 30px;
-  overflow: hidden;
-  padding: 0 20px 20px;
-  position: relative;
-  width: 85%;
-}
-
-#reviews-list li p {
-  margin: 0 0 10px;
 }
 
 #restaurant-hours td {
   color: #666;
+}
+
+/* Reviews */
+.c-reviews-container {
+  width: 50%;
+  margin-bottom: 65px;
+}
+
+.c-reviews-container h3 {
+  color: #f8ae00;
+  font-size: 24pt;
+  font-weight: 300;
+  padding-bottom: 1pt;
+}
+
+.c-reviews {
+  margin: 0;
+  padding: 0;
+}
+
+.c-reviews li {
+  background-color: #fff;
+  border: 2px solid #f3f3f3;
+  display: block;
+  list-style-type: none;
+  margin: 0 0 20px;
+  padding: 0 20px 20px;
+  position: relative;
+}
+
+.c-reviews li p {
+  margin: 0 0 10px;
+}
+
+/* Re-layout */
+@media screen and (max-width: 768px) {
+
+  /* Layout */
+  .page.page--restaurant .c-main .c-main__map {
+    position: relative;
+    top: 0;
+
+    display: block;
+    height: 300px;
+    width: 100%;
+  }
+
+  .page.page--restaurant .c-footer {
+    position: relative;
+    width: 100%;
+    bottom: auto;
+  }
+
+  .c-restaurant-container {
+    width: 100%;
+  }
+
+  .c-reviews-container {
+    width: 100%;
+    margin-bottom: 0;
+  }
 }
