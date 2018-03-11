@@ -466,3 +466,10 @@ section {
     margin-bottom: 0;
   }
 }
+
+/* ====================== 404 Error ====================== */
+.page.page--404 .c-main {
+  text-align: center;
+  margin-top: 20px;
+  color: #452816;
+}
