@@ -1,4 +1,10 @@
+const webpack = require('webpack');
 const path = require('path');
+
+const baseUrls = {
+  production: 'https://mws-restaurant-1519596698262.firebaseapp.com/',
+  development: 'http://localhost:8080/',
+};
 
 const config = {
   entry: {
@@ -36,8 +42,18 @@ const config = {
       //     // publicPath: '../img/',
       //   }
       // },
-    ]
+    ],
   },
 };
 
-module.exports = config;
+module.exports = env => {
+  const currentEnv = env.production ? 'production' : 'development';
+  
+  config.plugins = [
+    new webpack.DefinePlugin({
+      'BASE_URL': JSON.stringify(baseUrls[currentEnv]),
+    }),
+  ];
+  
+  return config;
+};

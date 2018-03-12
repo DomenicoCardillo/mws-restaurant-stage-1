@@ -16,10 +16,11 @@
     "webpack-cli": "^2.0.10"
   },
   "scripts": {
-    "assets:dev": "webpack --config webpack.config.js --mode development",
-    "assets:watch": "webpack --config webpack.config.js --mode development --watch",
-    "assets:prod": "webpack --config webpack.config.js --mode production",
-    "responsive-img": "grunt responsive-img"
+    "assets:dev": "webpack --config webpack.config.js --mode development --env.development",
+    "assets:watch": "webpack --config webpack.config.js --mode development --watch --env.development",
+    "assets:prod": "webpack --config webpack.config.js --mode production --env.production",
+    "assets:img": "grunt responsive-img",
+    "project:deploy": "bash dev/deploy.sh"
   },
   "repository": {
     "type": "git",
