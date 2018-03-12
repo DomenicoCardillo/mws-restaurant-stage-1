@@ -16,13 +16,12 @@
 <body class="page page--index">
 <header class="c-header">
   <h1 id="logo" class="c-header__brand">
-    <img src="svg/star.svg" />
+    <img src="svg/star.svg" alt="" />
     <a href="/">Restaurant Reviews</a>
   </h1>
 </header>
 
 <main id="maincontent" class="c-main">
-  <!-- TODO: Disable google map tabindex -->
   <section id="map-container" class="c-main__map">
     <div id="map" class="c-map"></div>
   </section>
@@ -32,10 +31,10 @@
         <div class="c-filters__inner">
           <h2 class="c-filters__title">Filter Results</h2>
           <div class="c-filters__form">
-            <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+            <select id="neighborhoods-select" name="neighborhoods" aria-label="Neighborhoods filter" onchange="updateRestaurants()">
               <option value="all">All Neighborhoods</option>
             </select>
-            <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+            <select id="cuisines-select" name="cuisines" aria-label="Cuisines filter" onchange="updateRestaurants()">
               <option value="all">All Cuisines</option>
             </select>
           </div>

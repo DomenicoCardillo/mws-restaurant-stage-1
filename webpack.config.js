@@ -3,7 +3,7 @@ const path = require('path');
 
 const baseUrls = {
   production: 'https://mws-restaurant-1519596698262.firebaseapp.com/',
-  development: 'http://localhost:8080/',
+  development: 'http://localhost:8000/',
 };
 
 const config = {
