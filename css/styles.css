@@ -326,10 +326,6 @@ section {
   border-radius: 10px 10px 0 0;
 }
 
-.c-restaurant .c-restaurant__address {
-  min-height: 42px;
-}
-
 .c-restaurant h3 {
   margin: 0 0 10px;
 
@@ -345,17 +341,28 @@ section {
   font-size: 0.875rem;
 }
 
+.c-restaurant .c-restaurant__address {
+  min-height: 42px;
+}
+
 .c-restaurant a {
   display: inline-block;
   padding: 10px 0;
   width: 100%;
   border-radius: 0 10px 0 10px;
 
-  background-color: #f8ae00;
-  border-bottom: 1px solid #fff;
-  color: #fff;
+  background-color: #fff;
+  border: 1px solid #f8ae00;
+  color: #f8ae00;
+
   text-transform: uppercase;
   text-align: center;
+}
+
+.c-restaurant a:hover {
+  transition: background-color .2s ease-out, color .2s ease-out;
+  background-color: #f8ae00;
+  color: #fff;
 }
 
 /* ====================== Restaurant Details ====================== */
@@ -517,8 +524,9 @@ section {
   margin-bottom: 10px;
   border-radius: 4px;
 
-  background-color: #f8ae00;
-  color: #fff;
+  background-color: #fff;
+  color: #f8ae00;
+  border: 1px solid #f8ae00;
   font-size: 12px;
   text-transform: uppercase;
 }
