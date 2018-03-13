@@ -88,6 +88,22 @@ section {
   padding: 0 20px;
 }
 
+.u-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 99999;
+
+  background: #452816;
+  color: #fff;
+  padding: 5px 15px;
+}
+
+.u-skip-link:focus {
+  top: 0;
+  color: #fff;
+}
+
 /* Main Layout */
 /* Header */
 .c-header {
