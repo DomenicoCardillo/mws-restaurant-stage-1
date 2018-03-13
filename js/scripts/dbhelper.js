@@ -160,17 +160,24 @@ class DBHelper {
     
     let source = null;
     imgSizes.forEach((imgSize) => {
+      // WepP
       source = document.createElement('source');
       source.media = `(min-width: ${imgSize.minWidth}px)`;
       source.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
-      picture.append(source);
+      source.srcset += '.webp';
+      picture.appendChild(source);
+      
+      // Jpg fallback
+      source = document.createElement('source');
+      source.media = `(min-width: ${imgSize.minWidth}px)`;
+      source.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
+      picture.appendChild(source);
     });
   
     const img = document.createElement('img');
     img.src = DBHelper.imageUrlForRestaurant(restaurant);
     img.alt = 'Restaurant photo';
-    
-    picture.append(img);
+    picture.appendChild(img);
     
     return picture;
   }

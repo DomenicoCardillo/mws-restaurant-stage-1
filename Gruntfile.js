@@ -36,11 +36,21 @@ const config = {
       }]
     }
   },
+  // WebP configuration
+  cwebp: {
+    images: {
+      files: [{
+        src: ['img/**/*.jpg', 'img/**/*.png'],
+      }],
+    },
+  },
 };
 
 module.exports = (grunt) => {
   grunt.initConfig(config);
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.registerTask('responsive-img', ['clean', 'responsive_images']);
+  grunt.loadNpmTasks('grunt-webp-compress');
+  
+  grunt.registerTask('images', ['clean', 'responsive_images', 'cwebp']);
 };
