@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # Start Deploy
-echo -e "Start deploy...\n"
+echo "Start deploy..."
 npm run assets:prod &
 
-echo -e "Build public folder...\n"
+echo "Build public folder..."
 rm -rf public/ && mkdir public/
 
 # Assets

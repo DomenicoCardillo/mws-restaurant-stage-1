@@ -1,10 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-
-const baseUrls = {
-  production: 'https://mws-restaurant-1519596698262.firebaseapp.com/',
-  development: 'http://localhost:8000/',
-};
+const HOST_URLS = require('./config');
 
 const config = {
   entry: {
@@ -51,7 +47,7 @@ module.exports = env => {
   
   config.plugins = [
     new webpack.DefinePlugin({
-      'BASE_URL': JSON.stringify(baseUrls[currentEnv]),
+      'BASE_URL': JSON.stringify(HOST_URLS[currentEnv]),
     }),
   ];
   

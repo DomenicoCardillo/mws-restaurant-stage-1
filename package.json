@@ -19,10 +19,11 @@
   "scripts": {
     "assets:dev": "webpack --config webpack.config.js --mode development --env.development",
     "assets:watch": "webpack --config webpack.config.js --mode development --watch --env.development",
-    "assets:prod-test": "webpack --config webpack.config.js --mode production --env.development",
-    "assets:prod": "webpack --config webpack.config.js --mode production --env.production",
+    "assets:prod:local": "webpack --config webpack.config.js --mode production --env.development",
+    "assets:prod": "webpack --config webpack.config.js --mode production --env.production --output public/dist/[name].js",
     "assets:img": "grunt images",
-    "project:deploy": "bash dev/deploy.sh"
+    "project:init": "./dev/init.sh",
+    "project:deploy": "./dev/deploy.sh"
   },
   "repository": {
     "type": "git",
