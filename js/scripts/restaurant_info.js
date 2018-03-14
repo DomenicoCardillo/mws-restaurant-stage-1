@@ -1,3 +1,4 @@
+import LazyLoad from 'vanilla-lazyload';
 import DBHelper from './dbhelper';
 
 let restaurant;
@@ -95,6 +96,12 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     restaurantContainer.appendChild(fillRestaurantHoursHTML());
   }
+  
+  // Lazy load images
+  new LazyLoad({
+    threshold: 0,
+  });
+  
   // fill reviews
   fillReviewsHTML();
 };

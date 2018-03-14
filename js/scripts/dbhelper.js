@@ -163,19 +163,18 @@ class DBHelper {
       // WepP
       source = document.createElement('source');
       source.media = `(min-width: ${imgSize.minWidth}px)`;
-      source.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
-      source.srcset += '.webp';
+      source.dataset.srcset = `${DBHelper.imageUrlForRestaurant(restaurant, imgSize.size)}.webp`;
       picture.appendChild(source);
       
       // Jpg fallback
       source = document.createElement('source');
       source.media = `(min-width: ${imgSize.minWidth}px)`;
-      source.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
+      source.dataset.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
       picture.appendChild(source);
     });
   
     const img = document.createElement('img');
-    img.src = DBHelper.imageUrlForRestaurant(restaurant);
+    img.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
     img.alt = 'Restaurant photo';
     picture.appendChild(img);
     
@@ -186,15 +185,13 @@ class DBHelper {
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
+    return new google.maps.Marker({
       position: restaurant.latlng,
       title: restaurant.name,
       url: DBHelper.urlForRestaurant(restaurant),
       map: map,
       animation: google.maps.Animation.DROP
     });
-    
-    return marker;
   }
 }
 

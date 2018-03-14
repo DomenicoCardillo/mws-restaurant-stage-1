@@ -1,3 +1,4 @@
+import LazyLoad from 'vanilla-lazyload';
 import DBHelper from './dbhelper';
 
 let restaurants;
@@ -148,6 +149,11 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.appendChild(notFound);
   }
   
+  // Lazy load images
+  new LazyLoad({
+    threshold: 0,
+  });
+  
   addMarkersToMap();
 };
 
@@ -159,6 +165,9 @@ const createRestaurantHTML = (restaurant) => {
   li.className = 'c-restaurant';
   
   const imgSizes = [{
+    size: 'original',
+    minWidth: 670,
+  }, {
     size: 670,
     minWidth: 570,
   }, {
