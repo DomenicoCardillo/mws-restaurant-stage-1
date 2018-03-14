@@ -17,11 +17,15 @@ cp -R data public/
 # Images
 cp -R img public/
 cp -R svg public/
+cp -R icons public/
 
 # View
 cp index.html public/
 cp restaurant.html public/
 cp 404.html public/
+
+# Other files
+cp manifest.webmanifest public/
 
 echo "Deploy on firebase..."
 firebase deploy
