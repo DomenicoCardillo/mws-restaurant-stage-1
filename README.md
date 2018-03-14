@@ -10,6 +10,6 @@ In a terminal, check the version of Python you have: `python -V`. If you have Py
 2. Run `chmod +x ./dev/deploy.sh ./dev/init.sh` for add permission to execute this files
 3. Run `dev/init.sh`
 
-You have to edit config.js with your local url e.g. `http://localhost:8000`, leave blank production url, then press a key to continue the config script.
+You have to edit `config.js` with your local url e.g. `http://localhost:8000`, leave blank production url, then press a key to continue the config script.
 
 4. With your server running, visit the site: `http://localhost:8000`.
