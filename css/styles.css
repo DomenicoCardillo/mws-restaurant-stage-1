@@ -548,12 +548,11 @@ section {
 
 /* Offline style (no map) */
 .page.page--restaurant .c-main.c-main--hide-map .c-restaurant-container {
-  width: 70%;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .page.page--restaurant .c-main.c-main--hide-map .c-reviews-container {
-  width: 70%;
+  width: 100%;
   margin: 20px auto 65px;
 }
 
