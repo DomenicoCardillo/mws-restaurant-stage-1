@@ -141,18 +141,18 @@ const resetRestaurants = (restaurants) => {
  * Create all restaurants HTML and add them to the webpage.
  */
 const fillRestaurantsHTML = (restaurants = self.restaurants) => {
-  const ul = document.getElementById('restaurants-list');
+  const restaurantList = document.getElementById('restaurants-list');
   if (restaurants.length > 0) {
-    ul.classList.remove('c-restaurants--not-found');
+    restaurantList.classList.remove('c-restaurants--not-found');
     restaurants.forEach(restaurant => {
-      ul.appendChild(createRestaurantHTML(restaurant));
+      restaurantList.appendChild(createRestaurantHTML(restaurant));
     });
   } else {
-    ul.classList.add('c-restaurants--not-found');
-    const notFound = document.createElement('li');
+    restaurantList.classList.add('c-restaurants--not-found');
+    const notFound = document.createElement('article');
     notFound.innerHTML = 'No restaurant found, try with other filter!';
     notFound.className = 'c-restaurants__not-found';
-    ul.appendChild(notFound);
+    restaurantList.appendChild(notFound);
   }
   
   // Lazy load images
@@ -170,8 +170,8 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
  * Create restaurant HTML.
  */
 const createRestaurantHTML = (restaurant) => {
-  const li = document.createElement('li');
-  li.className = 'c-restaurant';
+  const restaurantItem = document.createElement('article');
+  restaurantItem.className = 'c-restaurant';
   
   const imgSizes = [{
     size: 'original',
@@ -189,7 +189,7 @@ const createRestaurantHTML = (restaurant) => {
   
   const picture = DBHelper.sizedPictureForRestaurant(restaurant, imgSizes);
   picture.className = 'c-restaurant__picture';
-  li.appendChild(picture);
+  restaurantItem.appendChild(picture);
   
   const content = document.createElement('div');
   content.className = 'c-restaurant__content';
@@ -213,9 +213,9 @@ const createRestaurantHTML = (restaurant) => {
   content.appendChild(more);
   
   /* Append content to the li element */
-  li.appendChild(content);
+  restaurantItem.appendChild(content);
   
-  return li;
+  return restaurantItem;
 };
 
 /**
