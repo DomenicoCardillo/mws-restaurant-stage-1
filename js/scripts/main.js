@@ -1,5 +1,7 @@
 import LazyLoad from 'vanilla-lazyload';
 import DBHelper from './dbhelper';
+import loadGoogleMaps from './google-map';
+loadGoogleMaps();
 
 let restaurants;
 let neighborhoods;

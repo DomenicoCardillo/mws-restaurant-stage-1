@@ -1,5 +1,6 @@
 import LazyLoad from 'vanilla-lazyload';
 import DBHelper from './dbhelper';
+import loadGoogleMaps from './google-map';
 
 let restaurant;
 let map;
@@ -12,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (error) { // Got an error!
       console.error(error);
     } else {
+      // Defer load of google maps into DOMContentLoad
+      // for avoiding call fetchRestaurant more than one time
+      loadGoogleMaps();
       fillBreadcrumb();
     }
   });
