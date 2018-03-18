@@ -163,12 +163,14 @@ class DBHelper {
       // WepP
       source = document.createElement('source');
       source.media = `(min-width: ${imgSize.minWidth}px)`;
+      source.type = 'image/webp';
       source.dataset.srcset = `${DBHelper.imageUrlForRestaurant(restaurant, imgSize.size)}.webp`;
       picture.appendChild(source);
       
       // Jpg fallback
       source = document.createElement('source');
       source.media = `(min-width: ${imgSize.minWidth}px)`;
+      source.type = 'image/jpeg';
       source.dataset.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
       picture.appendChild(source);
     });
