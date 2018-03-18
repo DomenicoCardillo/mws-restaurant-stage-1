@@ -13,7 +13,6 @@
     "grunt-webp-compress": "0.0.4",
     "responsive-loader": "^1.1.0",
     "sharp": "^0.19.1",
-    "vanilla-lazyload": "^10.4.2",
     "webpack": "^4.1.0",
     "webpack-cli": "^2.0.10"
   },
@@ -36,5 +35,7 @@
     "url": "https://github.com/DomenicoCardillo/mws-restaurant-stage-1/issues"
   },
   "homepage": "https://github.com/DomenicoCardillo/mws-restaurant-stage-1#readme",
-  "dependencies": {}
+  "dependencies": {
+    "blazy": "^1.8.2"
+  }
 }

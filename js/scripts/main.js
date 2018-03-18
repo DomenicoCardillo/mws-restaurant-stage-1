@@ -1,4 +1,4 @@
-import LazyLoad from 'vanilla-lazyload';
+import Blazy from 'blazy';
 import DBHelper from './dbhelper';
 import loadGoogleMaps from './google-map';
 loadGoogleMaps();
@@ -156,8 +156,8 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
   }
   
   // Lazy load images
-  new LazyLoad({
-    threshold: 0,
+  new Blazy({
+    offset: 0,
   });
   
   // Set markers only if google is defined

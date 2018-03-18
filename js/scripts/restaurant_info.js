@@ -1,4 +1,4 @@
-import LazyLoad from 'vanilla-lazyload';
+import Blazy from 'blazy';
 import DBHelper from './dbhelper';
 import loadGoogleMaps from './google-map';
 
@@ -118,8 +118,8 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
   }
   
   // Lazy load images
-  new LazyLoad({
-    threshold: 0,
+  new Blazy({
+    offset: 0,
   });
   
   // fill reviews

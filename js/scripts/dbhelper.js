@@ -177,6 +177,8 @@ class DBHelper {
   
     const img = document.createElement('img');
     img.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+    img.className = 'b-lazy';
     img.alt = 'Restaurant photo';
     picture.appendChild(img);
     
