@@ -6,6 +6,7 @@ html {
 
   box-sizing: border-box;
 }
+
 *,
 *:before,
 *:after {
@@ -173,6 +174,10 @@ section {
 .c-main {
   background-color: #fafafa;
   min-height: 100%;
+}
+
+.c-main.c-main--hide-map .c-main__map {
+  display: none;
 }
 
 /* Footer */
@@ -376,7 +381,7 @@ section {
 }
 
 .page.page--restaurant .c-main {
-  padding-top: 100px;
+  padding-top: 111px;
 }
 
 .page.page--restaurant .c-footer {
@@ -421,6 +426,7 @@ section {
 .c-restaurant-details .c-restaurant-details__picture {
   display: block;
   margin: 0;
+  text-align: center;
 }
 
 .c-restaurant-details .c-restaurant-details__picture img {
@@ -472,7 +478,7 @@ section {
 /* Reviews */
 .c-reviews-container {
   width: 50%;
-  margin: 20px 0 65px 0;
+  margin: 20px 0 65px;
 }
 
 .c-reviews-container h3 {
@@ -540,6 +546,21 @@ section {
   margin: 0;
 }
 
+/* Offline style (no map) */
+.page.page--restaurant .c-main.c-main--hide-map .c-restaurant-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.page.page--restaurant .c-main.c-main--hide-map .c-reviews-container {
+  width: 70%;
+  margin: 20px auto 65px;
+}
+
+.page.page--restaurant .c-main.c-main--hide-map ~ .c-footer {
+  width: 100%;
+}
+
 /* Re-layout */
 @media screen and (max-width: 768px) {
 
@@ -548,7 +569,6 @@ section {
     position: relative;
     top: 0;
 
-    display: block;
     height: 300px;
     width: 100%;
     border-left: none;

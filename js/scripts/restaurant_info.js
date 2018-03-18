@@ -5,27 +5,36 @@ let restaurant;
 let map;
 
 /**
- * Initialize Google map, called from HTML.
+ * Fetch restaurant as soon as the page is loaded.
  */
-window.initMap = () => {
+document.addEventListener('DOMContentLoaded', () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: restaurant.latlng,
-        scrollwheel: false,
-      });
-      
-      google.maps.event.addListenerOnce(self.map, 'tilesloaded', () => {
-        document.querySelector('#map iframe').title = 'Google Maps';
-      });
-      
       fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
+});
+
+/**
+ * Initialize Google map, called from HTML.
+ */
+window.initMap = () => {
+  self.map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 16,
+    center: self.restaurant.latlng,
+    scrollwheel: false,
+  });
+  
+  const mainContent = document.getElementById('maincontent');
+  mainContent.classList.remove('c-main--hide-map');
+  
+  google.maps.event.addListenerOnce(self.map, 'tilesloaded', () => {
+    document.querySelector('#map iframe').title = 'Google Maps';
+  });
+  
+  DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
 };
 
 /**
@@ -33,9 +42,12 @@ window.initMap = () => {
  */
 const fetchRestaurantFromURL = (callback) => {
   if (self.restaurant) { // restaurant already fetched!
-    callback(null, self.restaurant);
-    return;
+    if (typeof callback === 'function') {
+      callback(null, self.restaurant);
+      return;
+    }
   }
+  
   const id = parseInt(getParameterByName('id'));
   if (!id) { // no id found in URL
     const error = 'No restaurant id in URL';
@@ -43,12 +55,16 @@ const fetchRestaurantFromURL = (callback) => {
   } else {
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
       self.restaurant = restaurant;
+      
       if (!restaurant) {
         console.error(error);
         return;
       }
       createRestaurantHTML();
-      callback(null, restaurant);
+      
+      if (typeof callback === 'function') {
+        callback(null, restaurant);
+      }
     });
   }
 };
@@ -86,12 +102,12 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
   cuisine.className = 'c-restaurant-details__cuisine';
   cuisine.innerHTML = restaurant.cuisine_type;
   restaurantContainer.appendChild(cuisine);
-
+  
   const address = document.createElement('p');
   address.className = 'c-restaurant-details__address';
   address.innerHTML = restaurant.address;
   restaurantContainer.appendChild(address);
-
+  
   // fill operating hours
   if (restaurant.operating_hours) {
     restaurantContainer.appendChild(fillRestaurantHoursHTML());
@@ -119,7 +135,7 @@ const fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hour
     
     day.innerHTML = key;
     row.appendChild(day);
-
+    
     const time = document.createElement('td');
     time.innerHTML = operatingHours[key];
     
@@ -138,7 +154,7 @@ const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
-
+  
   if (!reviews) {
     const noReviews = document.createElement('p');
     noReviews.className = 'c-reviews__not-found';
@@ -168,7 +184,7 @@ const createReviewHTML = (review) => {
   const name = document.createElement('span');
   name.innerHTML = review.name;
   header.appendChild(name);
-
+  
   const date = document.createElement('span');
   date.innerHTML = review.date;
   header.appendChild(date);
@@ -182,14 +198,14 @@ const createReviewHTML = (review) => {
   rating.className = 'c-review__rate';
   rating.innerHTML = `Rating: ${review.rating}`;
   content.appendChild(rating);
-
+  
   const comments = document.createElement('p');
   comments.className = 'c-review__comments';
   comments.innerHTML = review.comments;
   content.appendChild(comments);
   
   li.appendChild(content);
-
+  
   return li;
 };
 

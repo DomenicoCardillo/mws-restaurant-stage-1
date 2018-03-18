@@ -9,7 +9,7 @@
   <meta name="msapplication-config" content="/icons/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Restaurant - Info</title>
+  <title>Restaurant Reviews - Info</title>
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
@@ -45,7 +45,7 @@
 </header>
 
 <!-- Beginning main -->
-<main id="maincontent" class="c-main">
+<main id="maincontent" class="c-main c-main--hide-map">
   <!-- Beginning map -->
   <section id="map-container" class="c-main__map">
     <div id="map" class="c-map"></div>
@@ -69,6 +69,18 @@
   Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
 </footer>
 <!-- End footer -->
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
 
 <!-- Beginning scripts -->
 <!-- Main javascript file -->

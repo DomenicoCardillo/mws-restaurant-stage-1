@@ -25,6 +25,7 @@ cp restaurant.html public/
 cp 404.html public/
 
 # Other files
+cp sw.js public/
 cp manifest.webmanifest public/
 
 echo "Deploy on firebase..."

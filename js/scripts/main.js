@@ -13,6 +13,7 @@ let markers = [];
 document.addEventListener('DOMContentLoaded', () => {
   fetchNeighborhoods();
   fetchCuisines();
+  updateRestaurants();
 });
 
 /**
@@ -85,6 +86,9 @@ window.initMap = () => {
     scrollwheel: false,
   });
   
+  const mainContent = document.getElementById('maincontent');
+  mainContent.classList.remove('c-main--hide-map');
+  
   google.maps.event.addListenerOnce(self.map, 'tilesloaded', () => {
       document.querySelector('#map iframe').title = 'Google Maps';
     }
@@ -154,7 +158,10 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
     threshold: 0,
   });
   
-  addMarkersToMap();
+  // Set markers only if google is defined
+  if (typeof google !== 'undefined') {
+    addMarkersToMap();
+  }
 };
 
 /**
