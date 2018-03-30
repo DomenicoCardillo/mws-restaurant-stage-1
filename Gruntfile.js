@@ -38,10 +38,16 @@ const config = {
   },
   // WebP configuration
   cwebp: {
-    images: {
+    dynamic: {
+      options: {
+        q: 70,
+      },
       files: [{
-        src: ['img/**/*.jpg', 'img/**/*.png'],
-      }],
+        expand: true,
+        cwd: 'img/',
+        src: ['**/*.{png,jpg,gif}'],
+        dest: 'img/',
+      }]
     },
   },
 };
@@ -50,7 +56,7 @@ module.exports = (grunt) => {
   grunt.initConfig(config);
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-webp-compress');
+  grunt.loadNpmTasks('grunt-cwebp');
   
   grunt.registerTask('images', ['clean', 'responsive_images', 'cwebp']);
 };

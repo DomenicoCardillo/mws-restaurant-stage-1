@@ -8,26 +8,24 @@ class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    return `${BASE_URL}data/restaurants.json`;
+    return `${BASE_URL}restaurants/`;
   }
   
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', DBHelper.DATABASE_URL);
-    xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
-        const json = JSON.parse(xhr.responseText);
-        const restaurants = json.restaurants;
-        callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
-      }
-    };
-    xhr.send();
+    fetch(DBHelper.DATABASE_URL)
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((error) => {
+      const errorMessage = (`Request failed. Returned status of ${error.status}`);
+      callback(errorMessage, null);
+    });
   }
   
   /**
@@ -148,8 +146,8 @@ class DBHelper {
   /**
    * Restaurant image URL.
    */
-  static imageUrlForRestaurant(restaurant, size = 'original') {
-    return `/img/${size}/${restaurant.photograph}`;
+  static imageUrlForRestaurant(restaurant, size = 'original', ext = 'jpg') {
+    return `/img/${size}/${restaurant.photograph}.${ext}`;
   }
   
   /**
@@ -164,7 +162,7 @@ class DBHelper {
       source = document.createElement('source');
       source.media = `(min-width: ${imgSize.minWidth}px)`;
       source.type = 'image/webp';
-      source.dataset.srcset = `${DBHelper.imageUrlForRestaurant(restaurant, imgSize.size)}.webp`;
+      source.dataset.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size, 'webp');
       picture.appendChild(source);
       
       // Jpg fallback
