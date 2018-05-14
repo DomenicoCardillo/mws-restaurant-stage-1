@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/DomenicoCardillo/mws-restaurant-stage-1#readme",
   "dependencies": {
-    "blazy": "^1.8.2"
+    "blazy": "^1.8.2",
+    "idb": "^2.1.1"
   }
 }

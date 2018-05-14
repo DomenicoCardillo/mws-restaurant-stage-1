@@ -1,7 +1,17 @@
 /**
  * Common database helper functions.
  */
+let _restaurants = [];
+
 class DBHelper {
+  
+  static get restaurants() {
+    return _restaurants;
+  }
+  
+  static set restaurants(restaurants) {
+    _restaurants = restaurants;
+  }
   
   /**
    * Database URL.
@@ -15,35 +25,38 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    fetch(DBHelper.DATABASE_URL)
-    .then((response) => {
-      return response.json();
-    })
-    .then((response) => {
-      callback(null, response);
-    })
-    .catch((error) => {
-      const errorMessage = (`Request failed. Returned status of ${error.status}`);
-      callback(errorMessage, null);
-    });
+    if (this.restaurants && this.restaurants.length) {
+      callback(null, this.restaurants);
+    } else {
+      fetch(DBHelper.DATABASE_URL)
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        this.restaurants = response;
+        callback(null, response);
+      })
+      .catch((error) => {
+        const errorMessage = (`Request failed. Returned status of ${error.status}`);
+        callback(errorMessage, null);
+      });
+    }
   }
   
   /**
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
-    // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        const restaurant = restaurants.find(r => r.id === id);
-        if (restaurant) { // Got the restaurant
-          callback(null, restaurant);
-        } else { // Restaurant does not exist in the database
-          callback('Restaurant does not exist', null);
-        }
-      }
+    fetch(`${DBHelper.DATABASE_URL}${id}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch(() => {
+      const errorMessage = 'Restaurant does not exist';
+      callback(errorMessage, null);
     });
   }
   
@@ -172,7 +185,7 @@ class DBHelper {
       source.dataset.srcset = DBHelper.imageUrlForRestaurant(restaurant, imgSize.size);
       picture.appendChild(source);
     });
-  
+    
     const img = document.createElement('img');
     img.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
     img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';

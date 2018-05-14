@@ -12,7 +12,7 @@ let markers = [];
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   fetchNeighborhoods();
   fetchCuisines();
   updateRestaurants();

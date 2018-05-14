@@ -8,7 +8,7 @@ let map;
 /**
  * Fetch restaurant as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
