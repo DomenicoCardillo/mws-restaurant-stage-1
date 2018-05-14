@@ -1,6 +1,7 @@
 /**
  * Common database helper functions.
  */
+import IDBHelper from './idb-restaurants';
 let _restaurants = [];
 
 class DBHelper {
@@ -28,17 +29,27 @@ class DBHelper {
     if (this.restaurants && this.restaurants.length) {
       callback(null, this.restaurants);
     } else {
-      fetch(DBHelper.DATABASE_URL)
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        this.restaurants = response;
-        callback(null, response);
-      })
-      .catch((error) => {
-        const errorMessage = (`Request failed. Returned status of ${error.status}`);
-        callback(errorMessage, null);
+      IDBHelper.getRestaurants().then((restaurants) => {
+        if (restaurants.length) {
+          console.log('Return indexedDB data', restaurants);
+          this.restaurants = restaurants;
+          callback(null, this.restaurants);
+        } else {
+          console.log('indexedDB empty, fetch restaurants');
+          fetch(DBHelper.DATABASE_URL)
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            IDBHelper.saveRestaurants(response);
+            this.restaurants = response;
+            callback(null, response);
+          })
+          .catch((error) => {
+            const errorMessage = (`Request failed. Returned status of ${error.status}`);
+            callback(errorMessage, null);
+          });
+        }
       });
     }
   }
@@ -47,16 +58,24 @@ class DBHelper {
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
-    fetch(`${DBHelper.DATABASE_URL}${id}`)
-    .then((response) => {
-      return response.json();
-    })
-    .then((response) => {
-      callback(null, response);
-    })
-    .catch(() => {
-      const errorMessage = 'Restaurant does not exist';
-      callback(errorMessage, null);
+    IDBHelper.getRestaurant(id).then((restaurant) => {
+      if (restaurant) {
+        console.log('Return indexedDB data', restaurant);
+        callback(null, restaurant);
+      } else {
+        console.log('indexedDB empty, fetch restaurant by id');
+        fetch(`${DBHelper.DATABASE_URL}${id}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((response) => {
+          callback(null, response);
+        })
+        .catch(() => {
+          const errorMessage = 'Restaurant does not exist';
+          callback(errorMessage, null);
+        });
+      }
     });
   }
   
