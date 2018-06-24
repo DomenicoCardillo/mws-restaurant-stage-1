@@ -208,6 +208,7 @@ const createRestaurantHTML = (restaurant) => {
   content.appendChild(address);
 
   const more = document.createElement('a');
+  more.className = 'c-btn';
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   content.appendChild(more);

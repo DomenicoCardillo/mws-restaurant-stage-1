@@ -83,6 +83,24 @@ section {
   display: block;
 }
 
+.c-input,
+.c-textarea,
+.c-select {
+  width: 100%;
+  height: 50px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #767676;
+}
+
+.c-textarea {
+  resize: none;
+  height: 100px;
+}
+
 /* Utils */
 .o-container {
   position: relative;
@@ -352,7 +370,7 @@ section {
   min-height: 42px;
 }
 
-.c-restaurant a {
+.c-btn {
   display: inline-block;
   padding: 10px 0;
   width: 100%;
@@ -364,9 +382,10 @@ section {
 
   text-transform: uppercase;
   text-align: center;
+  cursor: pointer;
 }
 
-.c-restaurant a:hover {
+.c-btn:hover {
   transition: background-color .2s ease-out, color .2s ease-out;
   background-color: #f8ae00;
   color: #fff;
@@ -477,12 +496,21 @@ section {
 }
 
 /* Reviews */
-.c-reviews-container {
+.c-reviews-container,
+.c-reviews-new {
   width: 50%;
+}
+
+.c-reviews-container {
+  margin: 20px 0;
+}
+
+.c-reviews-new {
   margin: 20px 0 65px;
 }
 
-.c-reviews-container h3 {
+.c-reviews-container h3,
+.c-reviews-new h3 {
   color: #f8ae00;
   text-align: center;
   font-size: 24px;
@@ -552,7 +580,7 @@ section {
   width: 100%;
 }
 
-.page.page--restaurant .c-main.c-main--hide-map .c-reviews-container {
+.page.page--restaurant .c-main.c-main--hide-map .c-reviews-new {
   width: 100%;
   margin: 20px auto 65px;
 }
@@ -584,10 +612,20 @@ section {
     width: 100%;
   }
 
-  .c-reviews-container {
+  .c-reviews-container,
+  .c-reviews-new {
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
+}
+
+/* Utils classes */
+.u-hidden {
+  display: none !important;
+}
+
+.u-block {
+  display: block !important;
 }
 
 /* ====================== 404 Error ====================== */

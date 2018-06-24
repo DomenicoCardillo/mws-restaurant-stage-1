@@ -17,6 +17,9 @@ window.addEventListener('load', () => {
       // for avoiding call fetchRestaurant more than one time
       loadGoogleMaps();
       fillBreadcrumb();
+      
+      // Set listener to add a new review
+      document.getElementById('add-review').addEventListener('click', addReview);
     }
   });
 });
@@ -39,6 +42,39 @@ window.initMap = () => {
   });
   
   DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+};
+
+const addReview = () => {
+  const rating = document.getElementById('review-rating').value;
+  const name = document.getElementById('review-name').value;
+  const comments = document.getElementById('review-comments').value;
+  
+  if (!rating || !name || !comments) return;
+  if (name.length < 2 || comments.length < 10) return;
+  
+  const review = {
+    restaurant_id: self.restaurant.id,
+    rating: parseInt(rating),
+    name,
+    comments,
+  };
+  
+  DBHelper.addReview(review, (error, review) => {
+    if (error) { // Got an error!
+      
+      // TODO: Print the error
+      console.error(error);
+    } else {
+      console.log(review);
+      
+      // Hide form
+      document.getElementById('new-reviews-container').className = 'u-hidden';
+      // Remove listener to add a new review
+      document.getElementById('add-review').removeEventListener('click', null);
+  
+      // TODO: Reload the reviews
+    }
+  });
 };
 
 /**
@@ -122,6 +158,7 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
     offset: 0,
   });
   
+  // TODO: Fill reviews calling the new endpoint
   // fill reviews
   fillReviewsHTML();
 };
@@ -231,7 +268,7 @@ const getParameterByName = (name, url) => {
     url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
-    results = regex.exec(url);
+      results = regex.exec(url);
   if (!results)
     return null;
   if (!results[2])

@@ -15,11 +15,19 @@ class DBHelper {
   }
   
   /**
-   * Database URL.
+   * Restaurant Database URL.
    * Change this to restaurants.json file location on your server.
    */
-  static get DATABASE_URL() {
+  static get DB_RESTAURANT_URL() {
     return `${BASE_URL}restaurants/`;
+  }
+  
+  /**
+   * Reviews Database URL.
+   * Change this to restaurants.json file location on your server.
+   */
+  static get DB_REVIEWS_URL() {
+    return `${BASE_URL}reviews/`;
   }
   
   /**
@@ -36,7 +44,7 @@ class DBHelper {
           callback(null, this.restaurants);
         } else {
           console.log('indexedDB empty, fetch restaurants');
-          fetch(DBHelper.DATABASE_URL)
+          fetch(DBHelper.DB_RESTAURANT_URL)
           .then((response) => {
             return response.json();
           })
@@ -64,7 +72,7 @@ class DBHelper {
         callback(null, restaurant);
       } else {
         console.log('indexedDB empty, fetch restaurant by id');
-        fetch(`${DBHelper.DATABASE_URL}${id}`)
+        fetch(`${DBHelper.DB_RESTAURANT_URL}${id}`)
         .then((response) => {
           return response.json();
         })
@@ -226,6 +234,27 @@ class DBHelper {
       map: map,
       animation: google.maps.Animation.DROP
     });
+  }
+  
+  static addReview(review, callback) {
+    const config = {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(review),
+    };
+    
+    fetch(DBHelper.DB_REVIEWS_URL, config)
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        callback(null, response);
+      })
+      .catch(() => {
+        callback('There was an error, try again later.', null);
+      });
   }
 }
 
