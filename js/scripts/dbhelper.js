@@ -80,10 +80,25 @@ class DBHelper {
           callback(null, response);
         })
         .catch(() => {
-          const errorMessage = 'Restaurant does not exist';
+          const errorMessage = 'Restaurant doesn\'t exist';
           callback(errorMessage, null);
         });
       }
+    });
+  }
+  
+  static fetchReviewsByRestaurantId(restaurantId, callback) {
+    fetch(`${DBHelper.DB_REVIEWS_URL}?restaurant_id=${restaurantId}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      IDBHelper.updateRestaurantReviews(restaurantId, response);
+      callback(null, response);
+    })
+    .catch(() => {
+      const errorMessage = 'Reviews for this restaurant doesn\'t exist';
+      callback(errorMessage, null);
     });
   }
   
@@ -246,15 +261,16 @@ class DBHelper {
     };
     
     fetch(DBHelper.DB_REVIEWS_URL, config)
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        callback(null, response);
-      })
-      .catch(() => {
-        callback('There was an error, try again later.', null);
-      });
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((error) => {
+      console.log(error);
+      callback('There was an error, try again later.', null);
+    });
   }
 }
 

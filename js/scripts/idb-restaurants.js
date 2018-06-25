@@ -50,6 +50,25 @@ class IDBHelper {
       return store.get(parseInt(id));
     });
   }
+  
+  static updateRestaurantReviews(id, reviews) {
+    this.openIDB().then((db) => {
+      if (!db) return;
+      const tx = db.transaction('restaurants', 'readwrite');
+      const store = tx.objectStore('restaurants');
+      return store.openCursor();
+    }).then(function cursorIterate(cursor) {
+      if (!cursor) return;
+      
+      if (cursor.value.id === id) {
+        const data = cursor.value;
+        data.reviews = reviews;
+        return cursor.update(data);
+      }
+      
+      return cursor.continue().then(cursorIterate);
+    })
+  }
 }
 
 export default IDBHelper;

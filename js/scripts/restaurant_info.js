@@ -4,6 +4,9 @@ import loadGoogleMaps from './google-map';
 
 let restaurant;
 let map;
+const monthNames = ['January', 'February', 'March',
+    'April', 'May', 'June', 'July', 'August', 'September',
+    'October', 'November', 'December'];
 
 /**
  * Fetch restaurant as soon as the page is loaded.
@@ -60,19 +63,20 @@ const addReview = () => {
   };
   
   DBHelper.addReview(review, (error, review) => {
-    if (error) { // Got an error!
-      
-      // TODO: Print the error
-      console.error(error);
+    const reviewTitle = document.getElementById('add-review-title');
+    const reviewForm = document.getElementById('add-review-form');
+    reviewForm.className = 'u-hidden';
+    document.getElementById('add-review').removeEventListener('click', null);
+    
+    if (error) {
+      reviewTitle.className = 'c-reviews__sent c-reviews__sent--error';
+      reviewTitle.innerHTML = error;
     } else {
-      console.log(review);
-      
       // Hide form
-      document.getElementById('new-reviews-container').className = 'u-hidden';
-      // Remove listener to add a new review
-      document.getElementById('add-review').removeEventListener('click', null);
-  
-      // TODO: Reload the reviews
+      reviewTitle.className = 'c-reviews__sent c-reviews__sent--success';
+      reviewTitle.innerHTML = 'Review has sent!';
+      
+      DBHelper.fetchReviewsByRestaurantId(self.restaurant.id, fillReviewsHTML);
     }
   });
 };
@@ -158,9 +162,12 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
     offset: 0,
   });
   
-  // TODO: Fill reviews calling the new endpoint
   // fill reviews
-  fillReviewsHTML();
+  if (restaurant.reviews && restaurant.reviews.length > 0) {
+    fillReviewsHTML(null);
+  } else {
+    DBHelper.fetchReviewsByRestaurantId(restaurant.id, fillReviewsHTML);
+  }
 };
 
 /**
@@ -190,11 +197,9 @@ const fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hour
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+const fillReviewsHTML = (error, reviews = self.restaurant.reviews) => {
+  if (error !== null) return;
   const container = document.getElementById('reviews-container');
-  const title = document.createElement('h3');
-  title.innerHTML = 'Reviews';
-  container.appendChild(title);
   
   if (!reviews) {
     const noReviews = document.createElement('p');
@@ -205,6 +210,7 @@ const fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   }
   
   const ul = document.getElementById('reviews-list');
+  ul.innerHTML = '';
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
@@ -227,7 +233,8 @@ const createReviewHTML = (review) => {
   header.appendChild(name);
   
   const date = document.createElement('span');
-  date.innerHTML = review.date;
+  let createdAt = new Date(review.createdAt);
+  date.innerHTML = `${monthNames[createdAt.getMonth()]} ${createdAt.getDate()}, ${createdAt.getFullYear()}`;
   header.appendChild(date);
   
   li.appendChild(header);

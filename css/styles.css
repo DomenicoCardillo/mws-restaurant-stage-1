@@ -531,6 +531,19 @@ section {
   font-weight: bold;
 }
 
+.c-reviews__sent {
+  font-size: 20px;
+  text-align: center;
+}
+
+.c-reviews__sent.c-reviews__sent--error {
+  color: #ff291c;
+}
+
+.c-reviews__sent.c-reviews__sent--success {
+  color: #188013;
+}
+
 .c-review {
   position: relative;
   display: block;
@@ -576,17 +589,15 @@ section {
 }
 
 /* Offline style (no map) */
-.page.page--restaurant .c-main.c-main--hide-map .c-restaurant-container {
+.page.page--restaurant .c-main.c-main--hide-map .c-restaurant-container,
+.page.page--restaurant .c-main.c-main--hide-map .c-reviews-container,
+.page.page--restaurant .c-main.c-main--hide-map .c-reviews-new,
+.page.page--restaurant .c-main.c-main--hide-map ~ .c-footer {
   width: 100%;
 }
 
 .page.page--restaurant .c-main.c-main--hide-map .c-reviews-new {
-  width: 100%;
   margin: 20px auto 65px;
-}
-
-.page.page--restaurant .c-main.c-main--hide-map ~ .c-footer {
-  width: 100%;
 }
 
 /* Re-layout */
