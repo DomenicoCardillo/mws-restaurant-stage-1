@@ -1,6 +1,6 @@
 import idb from 'idb';
 
-class IDBHelper {
+class IDBRestaurant {
   /**
    * Open the database and return a promise
    * @returns {Promise}
@@ -71,4 +71,4 @@ class IDBHelper {
   }
 }
 
-export default IDBHelper;
+export default IDBRestaurant;

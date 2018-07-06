@@ -1,5 +1,6 @@
 import Blazy from 'blazy';
 import DBHelper from './dbhelper';
+import IDBPendingReviews from './idb-pending-reviews';
 import loadGoogleMaps from './google-map';
 
 let restaurant;
@@ -22,7 +23,7 @@ window.addEventListener('load', () => {
       fillBreadcrumb();
       
       // Set listener to add a new review
-      document.getElementById('add-review').addEventListener('click', addReview);
+      document.getElementById('add-review').addEventListener('click', sendReview);
     }
   });
 });
@@ -47,7 +48,7 @@ window.initMap = () => {
   DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
 };
 
-const addReview = () => {
+const sendReview = () => {
   const rating = document.getElementById('review-rating').value;
   const name = document.getElementById('review-name').value;
   const comments = document.getElementById('review-comments').value;
@@ -62,22 +63,41 @@ const addReview = () => {
     comments,
   };
   
+  if (navigator.onLine) {
+    addReview(review);
+  } else {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then((registration) => {
+        if ('sync' in registration) {
+          IDBPendingReviews.addPendingReview(review, () => {
+            return registration.sync.register('pending-reviews').then(() => {
+              console.log('Pending reviews is registered');
+            });
+          })
+        }
+      });
+    }
+  }
+};
+
+const addReview = (review) => {
   DBHelper.addReview(review, (error, review) => {
     const reviewTitle = document.getElementById('add-review-title');
     const reviewForm = document.getElementById('add-review-form');
     reviewForm.className = 'u-hidden';
     document.getElementById('add-review').removeEventListener('click', null);
-    
+
     if (error) {
+      // Show error
       reviewTitle.className = 'c-reviews__sent c-reviews__sent--error';
       reviewTitle.innerHTML = error;
-    } else {
-      // Hide form
-      reviewTitle.className = 'c-reviews__sent c-reviews__sent--success';
-      reviewTitle.innerHTML = 'Review has sent!';
-      
-      DBHelper.fetchReviewsByRestaurantId(self.restaurant.id, fillReviewsHTML);
+      return;
     }
+    
+    // Hide form
+    reviewTitle.className = 'c-reviews__sent c-reviews__sent--success';
+    reviewTitle.innerHTML = 'Review has sent!';
+    DBHelper.fetchReviewsByRestaurantId(self.restaurant.id, fillReviewsHTML);
   });
 };
 
@@ -162,12 +182,8 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
     offset: 0,
   });
   
-  // fill reviews
-  if (restaurant.reviews && restaurant.reviews.length > 0) {
-    fillReviewsHTML(null);
-  } else {
-    DBHelper.fetchReviewsByRestaurantId(restaurant.id, fillReviewsHTML);
-  }
+  // Always get reviews (for new reviews)
+  DBHelper.fetchReviewsByRestaurantId(restaurant.id, fillReviewsHTML);
 };
 
 /**

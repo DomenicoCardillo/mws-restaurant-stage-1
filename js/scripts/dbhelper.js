@@ -1,7 +1,7 @@
 /**
  * Common database helper functions.
  */
-import IDBHelper from './idb-restaurants';
+import IDBRestaurant from './idb-restaurants';
 let _restaurants = [];
 
 class DBHelper {
@@ -37,7 +37,7 @@ class DBHelper {
     if (this.restaurants && this.restaurants.length) {
       callback(null, this.restaurants);
     } else {
-      IDBHelper.getRestaurants().then((restaurants) => {
+      IDBRestaurant.getRestaurants().then((restaurants) => {
         if (restaurants.length) {
           console.log('Return indexedDB data', restaurants);
           this.restaurants = restaurants;
@@ -49,7 +49,7 @@ class DBHelper {
             return response.json();
           })
           .then((response) => {
-            IDBHelper.saveRestaurants(response);
+            IDBRestaurant.saveRestaurants(response);
             this.restaurants = response;
             callback(null, response);
           })
@@ -66,7 +66,7 @@ class DBHelper {
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
-    IDBHelper.getRestaurant(id).then((restaurant) => {
+    IDBRestaurant.getRestaurant(id).then((restaurant) => {
       if (restaurant) {
         console.log('Return indexedDB data', restaurant);
         callback(null, restaurant);
@@ -93,7 +93,7 @@ class DBHelper {
       return response.json();
     })
     .then((response) => {
-      IDBHelper.updateRestaurantReviews(restaurantId, response);
+      IDBRestaurant.updateRestaurantReviews(restaurantId, response);
       callback(null, response);
     })
     .catch(() => {
@@ -253,7 +253,7 @@ class DBHelper {
   
   static addReview(review, callback) {
     const config = {
-      method: "POST",
+      method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },

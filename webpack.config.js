@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
-const HOST_URLS = require('./config');
+const CONFIG = {};
+CONFIG.LOC = require('./config-loc');
+CONFIG.PROD = require('./config-prod');
 
 const config = {
   entry: {
@@ -43,11 +45,11 @@ const config = {
 };
 
 module.exports = env => {
-  const currentEnv = env.production ? 'production' : 'development';
+  const currentEnvironment = env.production ? 'PROD' : 'LOC';
   
   config.plugins = [
     new webpack.DefinePlugin({
-      'BASE_URL': JSON.stringify(HOST_URLS[currentEnv]),
+      'BASE_URL': JSON.stringify(CONFIG[currentEnvironment].HOST),
     }),
   ];
   
