@@ -28,8 +28,7 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('fetch', function (event) {
   /* Map assets */
-  if (event.request.method !== 'POST' ||
-      event.request.url.indexOf('reviews') !== -1 ||
+  if (event.request.url.indexOf('reviews') !== -1 ||
       event.request.url.indexOf('https://maps.googleapis.com/maps/api/js') === 0 ||
       event.request.url.indexOf('mapfiles/') > 0 ||
       event.request.url.indexOf('maps/vt') > 0 ||
