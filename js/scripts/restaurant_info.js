@@ -6,8 +6,8 @@ import loadGoogleMaps from './google-map';
 let restaurant;
 let map;
 const monthNames = ['January', 'February', 'March',
-    'April', 'May', 'June', 'July', 'August', 'September',
-    'October', 'November', 'December'];
+  'April', 'May', 'June', 'July', 'August', 'September',
+  'October', 'November', 'December'];
 
 /**
  * Fetch restaurant as soon as the page is loaded.
@@ -63,20 +63,11 @@ const sendReview = () => {
     comments,
   };
   
+  // If user result offline add sync event directly for the review.
   if (navigator.onLine) {
     addReview(review);
   } else {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistration().then((registration) => {
-        if ('sync' in registration) {
-          IDBPendingReviews.addPendingReview(review, () => {
-            return registration.sync.register('pending-reviews').then(() => {
-              console.log('Pending reviews is registered');
-            });
-          })
-        }
-      });
-    }
+    syncReview(review);
   }
 };
 
@@ -86,11 +77,12 @@ const addReview = (review) => {
     const reviewForm = document.getElementById('add-review-form');
     reviewForm.className = 'u-hidden';
     document.getElementById('add-review').removeEventListener('click', null);
-
+    
     if (error) {
-      // Show error
+      // Show error and sync review
       reviewTitle.className = 'c-reviews__sent c-reviews__sent--error';
-      reviewTitle.innerHTML = error;
+      reviewTitle.innerHTML = 'An error occurred, your reviews has been saved and will be sent when you will be back online!';
+      syncReview(review);
       return;
     }
     
@@ -100,6 +92,26 @@ const addReview = (review) => {
     DBHelper.fetchReviewsByRestaurantId(self.restaurant.id, fillReviewsHTML);
   });
 };
+
+const syncReview = (review) => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration().then((registration) => {
+      if ('sync' in registration) {
+        IDBPendingReviews.addPendingReview(review, () => {
+          return registration.sync.register('pending-reviews').then(() => {
+            const reviewTitle = document.getElementById('add-review-title');
+            const reviewForm = document.getElementById('add-review-form');
+            reviewForm.className = 'u-hidden';
+            document.getElementById('add-review').removeEventListener('click', null);
+            
+            reviewTitle.className = 'c-reviews__sent c-reviews__sent--success';
+            reviewTitle.innerHTML = 'You seem offline, the review has been saved and will be added when you will be back online! Thank you!';
+          });
+        })
+      }
+    });
+  }
+}
 
 /**
  * Get current restaurant from page URL.
