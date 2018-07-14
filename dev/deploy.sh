@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
+echo "Build into public folder..."
+rm -rf public/ && mkdir public/
+
 # Start Deploy
 echo "Start deploy..."
 npm run assets:prod
-
-echo "Build public folder..."
-rm -rf public/ && mkdir public/
+npm run assets:css
 
 # Assets
-cp -R css public/
 cp -R dist public/
 
 # Data (not necessary anymore)

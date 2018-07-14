@@ -9,6 +9,7 @@
     "babel-preset-env": "^1.6.1",
     "grunt": "^1.0.2",
     "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-cssmin": "^2.2.1",
     "grunt-cwebp": "^2.1.1",
     "grunt-responsive-images": "^1.10.1",
     "grunt-webp-compress": "0.0.4",
@@ -23,6 +24,7 @@
     "assets:prod:local": "webpack --config webpack.config.js --mode production --env.development",
     "assets:prod": "webpack --config webpack.config.js --mode production --env.production --output dist/[name].js",
     "assets:img": "grunt images",
+    "assets:css": "grunt css",
     "project:init": "./dev/init.sh",
     "project:deploy": "./dev/deploy.sh"
   },

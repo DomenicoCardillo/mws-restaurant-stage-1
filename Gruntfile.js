@@ -50,6 +50,16 @@ const config = {
       }]
     },
   },
+  cssmin: {
+    target: {
+      files: [{
+        expand: true,
+        src: './css/styles.css',
+        dest: 'public',
+        ext: '.css'
+      }]
+    }
+  }
 };
 
 module.exports = (grunt) => {
@@ -57,6 +67,8 @@ module.exports = (grunt) => {
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-cwebp');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   
   grunt.registerTask('images', ['clean', 'responsive_images', 'cwebp']);
+  grunt.registerTask('css', ['cssmin']);
 };
