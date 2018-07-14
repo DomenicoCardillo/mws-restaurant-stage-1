@@ -1,3 +1,4 @@
+/* This file is from idb promise library of @jakearchibald */
 'use strict';
 
 (function() {

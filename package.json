@@ -21,7 +21,7 @@
     "assets:dev": "webpack --config webpack.config.js --mode development --env.development",
     "assets:watch": "webpack --config webpack.config.js --mode development --watch --env.development",
     "assets:prod:local": "webpack --config webpack.config.js --mode production --env.development",
-    "assets:prod": "webpack --config webpack.config.js --mode production --env.production --output public/dist/[name].js",
+    "assets:prod": "webpack --config webpack.config.js --mode production --env.production --output dist/[name].js",
     "assets:img": "grunt images",
     "project:init": "./dev/init.sh",
     "project:deploy": "./dev/deploy.sh"

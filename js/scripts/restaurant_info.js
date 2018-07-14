@@ -113,6 +113,7 @@ const fetchRestaurantFromURL = (callback) => {
   }
   
   const id = parseInt(getParameterByName('id'));
+  
   if (!id) { // no id found in URL
     const error = 'No restaurant id in URL';
     callback(error, null);
@@ -124,6 +125,7 @@ const fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
+      
       createRestaurantHTML();
       
       if (typeof callback === 'function') {
@@ -182,8 +184,12 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
     offset: 0,
   });
   
-  // Always get reviews (for new reviews)
-  DBHelper.fetchReviewsByRestaurantId(restaurant.id, fillReviewsHTML);
+  // fill reviews
+  if (!navigator.onLine && (restaurant.reviews && restaurant.reviews.length > 0)) {
+    fillReviewsHTML(null);
+  } else {
+    DBHelper.fetchReviewsByRestaurantId(restaurant.id, fillReviewsHTML);
+  }
 };
 
 /**
@@ -276,7 +282,7 @@ const createReviewHTML = (review) => {
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-const fillBreadcrumb = (restaurant=self.restaurant) => {
+const fillBreadcrumb = (restaurant = self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;

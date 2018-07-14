@@ -89,10 +89,10 @@ function addReview() {
         };
 
         return fetch(self.CONFIG.HOST + 'reviews/', config)
-          .then((response) => {
+          .then(function(response) {
             return response.json();
           })
-          .then((response) => {
+          .then(function(response) {
             console.log('Review added', response);
 
             idb.open('mws-pending-reviews', 1)
@@ -102,7 +102,7 @@ function addReview() {
                 return transaction.objectStore('pending-reviews').delete(review.restaurant_id);
               })
           })
-          .catch((error) => {
+          .catch(function(error) {
             console.error(error);
           });
       }));
