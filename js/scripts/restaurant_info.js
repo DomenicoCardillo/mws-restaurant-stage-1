@@ -190,10 +190,12 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
   restaurantContainer.appendChild(address);
   
-  const favorite = document.createElement('span');
+  const favorite = document.createElement('button');
   favorite.id = 'add-to-favorites';
-  favorite.className = `c-restaurant-details__favorite ${restaurant.is_favorite ? 'is-favorite' : ''}`;
-  favorite.innerHTML = restaurant.is_favorite ?  'Remove from favorites' : 'Add to favorites';
+  favorite.className = `c-btn c-restaurant-details__favorite ${restaurant.is_favorite ? 'is-favorite' : ''}`;
+  favorite.innerHTML = restaurant.is_favorite ? 'Remove from favorites' : 'Add to favorites';
+  favorite.setAttribute('role', 'switch');
+  favorite.setAttribute('aria-checked', restaurant.is_favorite);
   restaurantContainer.appendChild(favorite);
   
   // fill operating hours
@@ -222,8 +224,9 @@ const toggleFavorites = () => {
   
     self.restaurant = restaurant;
     const favorite = document.getElementById('add-to-favorites');
-    favorite.innerHTML = restaurant.is_favorite ?  'Remove from favorites' : 'Add to favorites';
-    favorite.className = `c-restaurant-details__favorite ${restaurant.is_favorite ? 'is-favorite' : ''}`;
+    favorite.innerHTML = restaurant.is_favorite ? 'Remove from favorites' : 'Add to favorites';
+    favorite.className = `c-btn c-restaurant-details__favorite ${restaurant.is_favorite ? 'is-favorite' : ''}`;
+    favorite.setAttribute('aria-checked', restaurant.is_favorite);
   });
 };
 
