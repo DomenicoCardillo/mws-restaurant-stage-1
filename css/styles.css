@@ -94,6 +94,7 @@ section {
   border: 1px solid #ddd;
   background-color: #fff;
   color: #767676;
+  font-size: 16px;
 }
 
 .c-textarea {
@@ -324,6 +325,7 @@ section {
 }
 
 .c-restaurant {
+  position: relative;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 10px 10px 0 0;
@@ -351,6 +353,12 @@ section {
   border-radius: 10px 10px 0 0;
 }
 
+.c-restaurant .c-restaurant__favorite {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
 .c-restaurant h3 {
   margin: 0 0 10px;
 
@@ -375,11 +383,11 @@ section {
   padding: 10px 0;
   width: 100%;
   border-radius: 0 10px 0 10px;
-
   background-color: #fff;
   border: 1px solid #f8ae00;
   color: #f8ae00;
 
+  font-size: 16px;
   text-transform: uppercase;
   text-align: center;
   cursor: pointer;
@@ -463,6 +471,18 @@ section {
   font-weight: 300;
   text-align: center;
   text-transform: uppercase;
+}
+
+.c-restaurant-details .c-restaurant-details__favorite {
+  display: block;
+  text-align: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  color: #f8ae00;
+}
+
+.c-restaurant-details .c-restaurant-details__favorite.is-favorite {
+  font-weight: bold;
 }
 
 .c-restaurant-details .c-restaurant-details__address {

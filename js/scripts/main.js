@@ -191,6 +191,14 @@ const createRestaurantHTML = (restaurant) => {
   picture.className = 'c-restaurant__picture';
   restaurantItem.appendChild(picture);
   
+  if (restaurant.is_favorite) {
+    const favoriteStar = document.createElement('img');
+    favoriteStar.alt = '';
+    favoriteStar.src = 'svg/star.svg';
+    favoriteStar.className = 'c-restaurant__favorite';
+    restaurantItem.appendChild(favoriteStar);
+  }
+  
   const content = document.createElement('div');
   content.className = 'c-restaurant__content';
 

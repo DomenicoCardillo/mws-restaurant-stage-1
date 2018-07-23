@@ -24,6 +24,9 @@ window.addEventListener('load', () => {
       
       // Set listener to add a new review
       document.getElementById('add-review').addEventListener('click', sendReview);
+  
+      // Set listener for favorite toggle
+      document.getElementById('add-to-favorites').addEventListener('click', toggleFavorites);
     }
   });
 });
@@ -111,7 +114,7 @@ const syncReview = (review) => {
       }
     });
   }
-}
+};
 
 /**
  * Get current restaurant from page URL.
@@ -152,6 +155,7 @@ const fetchRestaurantFromURL = (callback) => {
  */
 const createRestaurantHTML = (restaurant = self.restaurant) => {
   const restaurantContainer = document.getElementById('restaurant-container');
+  restaurantContainer.innerHTML = '';
   
   const name = document.createElement('h2');
   name.className = 'c-restaurant-details__name';
@@ -186,6 +190,12 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
   restaurantContainer.appendChild(address);
   
+  const favorite = document.createElement('span');
+  favorite.id = 'add-to-favorites';
+  favorite.className = `c-restaurant-details__favorite ${restaurant.is_favorite ? 'is-favorite' : ''}`;
+  favorite.innerHTML = restaurant.is_favorite ?  'Remove from favorites' : 'Add to favorites';
+  restaurantContainer.appendChild(favorite);
+  
   // fill operating hours
   if (restaurant.operating_hours) {
     restaurantContainer.appendChild(fillRestaurantHoursHTML());
@@ -202,6 +212,19 @@ const createRestaurantHTML = (restaurant = self.restaurant) => {
   } else {
     DBHelper.fetchReviewsByRestaurantId(restaurant.id, fillReviewsHTML);
   }
+};
+
+const toggleFavorites = () => {
+  DBHelper.toggleFavorite(self.restaurant, (error, restaurant) => {
+    if (error !== null) {
+      return;
+    }
+  
+    self.restaurant = restaurant;
+    const favorite = document.getElementById('add-to-favorites');
+    favorite.innerHTML = restaurant.is_favorite ?  'Remove from favorites' : 'Add to favorites';
+    favorite.className = `c-restaurant-details__favorite ${restaurant.is_favorite ? 'is-favorite' : ''}`;
+  });
 };
 
 /**

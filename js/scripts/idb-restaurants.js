@@ -51,6 +51,25 @@ class IDBRestaurant {
     });
   }
   
+  static updateRestaurantFavorite(id, is_favorite) {
+    this.openIDB().then((db) => {
+      if (!db) return;
+      const tx = db.transaction('restaurants', 'readwrite');
+      const store = tx.objectStore('restaurants');
+      return store.openCursor();
+    }).then(function cursorIterate(cursor) {
+      if (!cursor) return;
+    
+      if (cursor.value.id === id) {
+        const data = cursor.value;
+        data.is_favorite = is_favorite;
+        return cursor.update(data);
+      }
+    
+      return cursor.continue().then(cursorIterate);
+    })
+  }
+  
   static updateRestaurantReviews(id, reviews) {
     this.openIDB().then((db) => {
       if (!db) return;
