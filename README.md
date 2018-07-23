@@ -1,5 +1,4 @@
 # Restaurant Reviews
----
 
 ## How can i see it on my localhost?
 
